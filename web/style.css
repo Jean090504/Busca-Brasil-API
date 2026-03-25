@@ -1,35 +1,60 @@
-/* Definição da fonte global */
-body { 
-    font-family: 'Plus Jakarta Sans', sans-serif; 
+:root {
+    --neon-green: #00ff88;
+    --cyber-yellow: #f0db4f;
+    --deep-blue: #0a0f1e;
+    --border-width: 3px;
 }
 
-/* Efeito de Vidro (Glassmorphism) */
-.glass { 
-    background: rgba(255, 255, 255, 0.03); 
-    backdrop-filter: blur(10px); 
-    border: 1px solid rgba(255, 255, 255, 0.1); 
+body {
+    background: var(--deep-blue);
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(0, 255, 136, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(240, 219, 79, 0.1) 0px, transparent 50%);
+    overflow-x: hidden;
 }
 
-/* Fundo Gradiente fixo */
-.gradient-bg { 
-    background: radial-gradient(circle at top left, #1e293b, #0f172a); 
-    min-height: 100vh; 
+/* Efeito Neo-Brutalista */
+.neo-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: var(--border-width) solid #fff;
+    box-shadow: 8px 8px 0px rgba(0, 255, 136, 0.2);
+    transition: all 0.2s ease;
+    backdrop-filter: blur(12px);
 }
 
-/* Animação suave dos cards */
-.card-animate { 
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+.neo-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 12px 12px 0px var(--neon-green);
+    border-color: var(--neon-green);
 }
 
-.card-animate:hover { 
-    transform: translateY(-5px) scale(1.02); 
+/* Botão com "Clique Real" */
+.neo-button {
+    border: var(--border-width) solid #000;
+    box-shadow: 4px 4px 0px #000;
+    transition: all 0.1s;
 }
 
-/* Barra de rolagem customizada para a lista de cidades */
-.custom-scrollbar::-webkit-scrollbar {
-    width: 6px;
+.neo-button:active {
+    transform: translate(2px, 2px);
+    box-shadow: 0px 0px 0px #000;
 }
-.custom-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(16, 185, 129, 0.3);
+
+/* Animação de entrada dos cards */
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-in {
+    animation: slideUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--deep-blue); }
+::-webkit-scrollbar-thumb { 
+    background: var(--neon-green); 
+    border: 3px solid var(--deep-blue);
     border-radius: 10px;
 }
