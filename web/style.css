@@ -1,0 +1,35 @@
+/* Definição da fonte global */
+body { 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+}
+
+/* Efeito de Vidro (Glassmorphism) */
+.glass { 
+    background: rgba(255, 255, 255, 0.03); 
+    backdrop-filter: blur(10px); 
+    border: 1px solid rgba(255, 255, 255, 0.1); 
+}
+
+/* Fundo Gradiente fixo */
+.gradient-bg { 
+    background: radial-gradient(circle at top left, #1e293b, #0f172a); 
+    min-height: 100vh; 
+}
+
+/* Animação suave dos cards */
+.card-animate { 
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+}
+
+.card-animate:hover { 
+    transform: translateY(-5px) scale(1.02); 
+}
+
+/* Barra de rolagem customizada para a lista de cidades */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(16, 185, 129, 0.3);
+    border-radius: 10px;
+}
