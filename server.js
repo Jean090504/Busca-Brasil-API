@@ -7,9 +7,7 @@
 
 const app = require('./src/app');
 
-// O segredo está aqui: o Render vai injetar uma porta na variável process.env.PORT.
-// Se não existir (no seu PC), ele usa a 10000 ou 8080.
-const PORT = process.env.PORT || 10000; 
+const PORT = process.env.PORT || 10000
 
 app.listen(PORT, () => {
     console.log(`
@@ -18,5 +16,5 @@ app.listen(PORT, () => {
     📡 URL Local: http://localhost:${PORT}
     🛠️  Status: Operacional
     ====================================================
-    `);
-});
+    `)
+})
