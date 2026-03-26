@@ -1,6 +1,6 @@
 "use strict"
 
-const API_URL = "http://localhost:8080/buscaBrasil"
+const API_URL = "https://busca-brasil-api.onrender.com/buscaBrasil"
 
 // Mapeamento dos elementos (Dessa forma deixa imutável)
 const elementos = {
