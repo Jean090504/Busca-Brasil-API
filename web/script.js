@@ -55,49 +55,51 @@ const buscarEstado = async () => {
 const renderizarTela = (estado, cidade) => {
     elementos.carregamento.classList.add('hidden')
     elementos.area.classList.remove('hidden')
+    
+    // Limpa a área para a nova animação de entrada
+    elementos.area.innerHTML = ""
 
-    // 1. Pegamos a lista bruta
-    const listaBruta = cidade.cidades || cidade.cidade || []
+    const listaFinal = cidade.cidades || []
     const nomeCapital = estado.capital
 
-    // 2. Separamos a capital do resto da lista
-    const apenasCidades = listaBruta.filter(nome => nome !== nomeCapital)
-    
-    // 3. Ordenamos o resto em ordem alfabética (opcional, mas recomendado)
-    apenasCidades.sort((a, b) => a.localeCompare(b))
-
-    // 4. Criamos o HTML das cidades normais
-    const cidadesSeguras = apenasCidades
-        .map(nome => `<div class="bg-white/5 p-3 rounded-lg text-sm text-center border border-white/10">${xss(nome)}</div>`)
-        .join('')
-
-    // Injeção controlada
-    elementos.area.innerHTML = `
-        <div class="md:col-span-2 glass p-8 rounded-3xl relative overflow-hidden group">
-            <span class="text-xs font-bold text-emerald-500 uppercase tracking-widest">REGIÃO ${xss(estado.regiao)}</span>
-            <h2 class="text-6xl font-bold mt-2">${xss(estado.descricao)}</h2>
-            <div class="mt-8 flex gap-8">
-                <div><p class="text-xs text-slate-500 uppercase">Sigla</p><p class="text-2xl font-semibold text-emerald-400">${xss(estado.uf)}</p></div>
-                <div><p class="text-xs text-slate-500 uppercase">Cidades</p><p class="text-2xl font-semibold">${Number(cidade.quantidade_cidades)}</p></div>
+    // Criando o container com efeito de fade
+    const dashboardHTML = `
+        <div class="animate-in grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="neo-card md:col-span-2 p-10 bg-emerald-500 text-black relative overflow-hidden">
+                <h2 class="text-8xl font-black italic uppercase tracking-tighter opacity-20 absolute -right-4 -bottom-4 leading-none">${xss(estado.uf)}</h2>
+                <span class="font-mono text-xs font-bold uppercase tracking-widest bg-black text-white px-2 py-1">Origin: ${xss(estado.regiao)}</span>
+                <h2 class="text-6xl font-black uppercase mt-4">${xss(estado.descricao)}</h2>
             </div>
-        </div>
 
-        <div class="glass p-8 rounded-3xl flex flex-col justify-center items-center border-t-4 border-yellow-500 text-center">
-            <p class="text-yellow-500 uppercase text-[10px] font-bold tracking-widest mb-2">⭐ Capital do Estado</p>
-            <span class="text-3xl font-black text-white">${xss(nomeCapital)}</span>
-            <p class="mt-2 text-[10px] text-slate-500 italic uppercase">Sede Administrativa</p>
-        </div>
+            <div class="neo-card p-8 flex flex-col justify-center items-center text-center border-yellow-400">
+                <div class="w-20 h-20 rounded-full border-2 border-yellow-400 flex items-center justify-center animate-pulse mb-4">
+                    <span class="text-3xl">⭐</span>
+                </div>
+                <p class="text-[10px] font-bold text-yellow-400 uppercase tracking-widest">Capital Principal</p>
+                <h3 class="text-4xl font-black text-white">${xss(nomeCapital)}</h3>
+            </div>
 
-        <div class="md:col-span-3 glass p-8 rounded-3xl">
-            <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
-                <span class="w-2 h-2 bg-emerald-500 rounded-full"></span>
-                Municípios de ${xss(estado.descricao)}
-            </h3>
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-3 max-h-80 overflow-y-auto custom-scrollbar pr-2">
-                ${cidadesSeguras}
+            <div class="neo-card p-8 flex flex-col justify-center items-center text-center">
+                <span class="text-6xl font-black text-white">${listaFinal.length}</span>
+                <p class="text-[10px] font-bold text-emerald-400 uppercase tracking-widest">Cidades Mapeadas</p>
+            </div>
+
+            <div class="neo-card md:col-span-2 p-8">
+                <h3 class="font-bold text-xl text-white mb-6 flex items-center gap-4">
+                    MUNICÍPIOS <div class="h-px flex-1 bg-white/10"></div>
+                </h3>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 max-h-96 overflow-y-auto pr-4 custom-scrollbar">
+                    ${listaFinal.map(c => `
+                        <div class="bg-white/5 border border-white/10 p-3 text-[11px] font-bold uppercase tracking-wider hover:bg-emerald-500 hover:text-black transition-all cursor-crosshair">
+                            ${xss(c)}
+                        </div>
+                    `).join('')}
+                </div>
             </div>
         </div>
     `
+
+    elementos.area.innerHTML = dashboardHTML
 }
 
 const buscarCapitaisHistoricas = async () => {

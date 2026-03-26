@@ -6,14 +6,6 @@
 ********************************************************************************************************************************************/
 
 const app = require('./src/app')
-const PORT = 8080
 
-app.listen(PORT, () => {
-    console.log(`
-        *******************************************************
-        * API Busca Brasil - Jean Costa                       *
-        * Servidor rodando na porta ${PORT}                      *
-        * Acesse: http://localhost:${PORT}/buscaBrasil/estados  *
-        *******************************************************
-        `)
-})
+const PORT = process.env.PORT || 8080; 
+app.listen(PORT, () => console.log(`Servidor em https://localhost:${PORT}`));
